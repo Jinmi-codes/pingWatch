@@ -1,1 +1,0 @@
-print("Hey! This is the start of my hackclub journey!")
