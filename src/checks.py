@@ -5,11 +5,39 @@ from enums import Status
 
 
 class Target:
-    def __init__(self, name, status, http_code, time, ):
+    def __init__(self, name, url, status=None, http_code=0, time=0  ):
         self.name = name
         self.status = status
         self.http_code = http_code
         self.time = time
+        self.url = url
+   
+    
+    def status_check(self):
+        
+        try:
+            r = requests.get(self.url)
+            r.raise_for_status()
+        except requests.exceptions.HTTPError:
+            self.status = Status.DEAD
+            self.http_code = r.status_code
+            self.time = r.elapsed
+            return
+        except requests.exceptions.Timeout:
+            self.status = Status.TIMEOUT
+            self.http_code = r.status_code
+            self.time = r.elapsed
+        except requests.exceptions.RequestException:
+            self.status = Status.BAD
+            self.http_code = r.status_code
+            self.time = r.elapsed
+            
+        self.status = Status.SUCCESS
+        self.http_code = r.status_code
+        self.time = r.elapsed
+        
+
+    
         
 
 def check_dns(url):
@@ -22,22 +50,3 @@ def check_dns(url):
     
     return status
 
-def status_check(url):
-    try:
-        r = requests.get(url)
-        r.raise_for_status()
-    except requests.exceptions.HTTPError:
-        # 404/500 requests
-        status = Target(url, Status.DEAD,r.status_code, r.elapsed )
-        return status
-    except requests.exceptions.Timeout:
-        # timed out requests
-        status = Target(url, Status.TIMEOUT,r.status_code, r.elapsed )
-        return status
-    except requests.exceptions.RequestException:
-        status = Target(url, Status.BAD,r.status_code, r.elapsed )
-        return status
-    status = Target(url, Status.SUCCESS,r.status_code, r.elapsed )
-    return status
-            
-        
