@@ -15,13 +15,14 @@ def config_handler(path):
     try: 
         with open(path, 'r') as json_file:
             data = json.load(json_file)
-            return target_handler(data)
+            return data
     except json.JSONDecodeError:
         raise Exception("file is not a json file.")
     except Exception as e:
         raise Exception(f"an error: {e} occured. ")
     
-def target_handler(data):
+def target_handler(path):
+    data = config_handler(path)
     valid_targets = []
     if not "targets" in data:
         raise Exception("config error. Targets weren't specified.")
@@ -38,7 +39,16 @@ def target_handler(data):
     return valid_targets
 
             
-            
+def info_builder(targets):
+    if len(targets) <= 0:
+        return 
+    for target in targets:
+        target.status_check()
+        print(f"Name: {target.name}, URL: {target.url}, Status code:{target.http_code}, Time:{target.time}")
                
+try:
+    info_builder((target_handler("../config.json")))
+except Exception as e:
+    print(f"Fudge! {e} ")
     
-config_handler("../config.json")
+    
