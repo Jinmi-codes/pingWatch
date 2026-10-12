@@ -1,7 +1,7 @@
 import requests
 import socket
 from urllib.parse import urlparse
-from enums import Status
+from pingwatch.enums import Status
 
 
 class Target:

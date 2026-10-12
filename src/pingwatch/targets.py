@@ -1,6 +1,6 @@
 import json
-from enums import Status
-from checks import Target
+from pingwatch.enums import Status
+from pingwatch.checks import Target
 from pathlib import *
 #path = Path("../config.json ")
 #print(path.exists())

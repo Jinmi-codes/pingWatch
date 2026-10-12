@@ -1,4 +1,4 @@
-from parser import info_builder, target_handler
+from pingwatch.targets import info_builder, target_handler
 import argparse
 
 def main():
@@ -6,9 +6,10 @@ def main():
     parser.add_argument("config", help="File location for config")
     args = parser.parse_args()
     config_path = args.config
-    targets = target_handler(config_path)
+    
     
     try:
+        targets = target_handler(config_path)
         info_builder(targets)
     except Exception as e:
         print(f"Fudge! {e}")
