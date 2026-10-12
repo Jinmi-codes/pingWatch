@@ -20,14 +20,14 @@ class Target:
         try:
             r = requests.get(self.url)
             r.raise_for_status()
-            
+            time = "hey"
             self.status = Status.SUCCESS
             self.http_code = r.status_code
-            self.time = r.elapsed
+            self.time = str(r.elapsed).split(":")[2]
         except requests.exceptions.HTTPError:
             self.status = Status.DEAD
             self.http_code = r.status_code
-            self.time = r.elapsed
+            self.time = str(r.elapsed).split(":")[2]
         except requests.exceptions.Timeout:
             self.status = Status.TIMEOUT
             self.http_code = 500

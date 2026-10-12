@@ -1,5 +1,5 @@
 import json
-
+from enums import Status
 from checks import Target
 from pathlib import *
 #path = Path("../config.json ")
@@ -44,11 +44,23 @@ def info_builder(targets):
         return 
     for target in targets:
         target.status_check()
-        print(f"Name: {target.name}, URL: {target.url}, Status code:{target.http_code}, Time:{target.time}")
+        status = ""
+        match target.status:
+            case Status.SUCCESS:
+                status = "UP"
+            case Status.DEAD:
+                status = "DOWN"
+            case Status.BAD:
+                status = "BAD REQUEST"
+            case _:
+                status = "Unknown request, can you firgure out why? XD"
+                
+        
+        print(f"Name: {target.name}, Status: {status}  HTTP-Code:{target.http_code}, Time:{target.time}")
                
-try:
-    info_builder((target_handler("../config.json")))
-except Exception as e:
-    print(f"Fudge! {e} ")
+#try:
+#    info_builder((target_handler("../config.json")))
+#except Exception as e:
+#    print(f"Fudge! {e} ")
     
     
