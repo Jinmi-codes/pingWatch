@@ -1,7 +1,7 @@
 [project]
 name = "pingwatch"
 version = "0.1.0"
-description = "Add your description here"
+description = "A CLI tool that pings a website and returns useful info."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

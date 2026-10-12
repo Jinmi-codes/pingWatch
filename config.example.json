@@ -1,0 +1,13 @@
+{
+    "defaults": [],
+    "targets": [
+        {
+            "name":"Google",
+            "url":"https://google.com"
+        },
+        {
+            "name":"Netlfix",
+            "url":"https://netlix.com"
+        }
+    ]
+}
