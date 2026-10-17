@@ -27,6 +27,12 @@ pip install pingwatch-0.1.0-py3-none-any.whl
 
 Requires Python 3.13 or newer.
 
+Or download the ".exe" from [Releases page](https://github.com/Jinmi-codes/pingWatch/releases/download/v1.0/pingwatch.exe) and run:
+
+```
+.\pingwatch.exe config.json
+```
+
 ## Usage
 
 ```
